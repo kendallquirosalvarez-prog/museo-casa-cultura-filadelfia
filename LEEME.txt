@@ -1,0 +1,98 @@
+============================================================
+ MUSEO VIRTUAL — CASA DE LA CULTURA DE FILADELFIA
+============================================================
+
+Esta carpeta contiene un sitio web (museo virtual) con las 43
+fotografías de la Casa de la Cultura de Filadelfia, más la
+presentación de PowerPoint del proyecto con el código QR de acceso.
+
+------------------------------------------------------------
+ CONTENIDO DE LA CARPETA
+------------------------------------------------------------
+  index.html                                  -> el museo virtual (pagina web)
+  imagenes/                                   -> las 43 fotografias (foto-01.jpg ... foto-43.jpg)
+  qr-museo.png                                 -> el codigo QR de acceso
+  generar_qr.py                                -> script para regenerar el QR
+  iniciar-museo.bat                            -> inicia todo con un doble clic
+  build_pptx.py                                -> script que genera la presentacion
+  Presentacion-Casa-Cultura-Filadelfia.pptx    -> presentacion de PowerPoint (incluye el QR)
+
+------------------------------------------------------------
+ COMO USARLO EL DIA DE LA PRESENTACION (paso a paso)
+------------------------------------------------------------
+1. Conecta tu computadora a la red WiFi del lugar donde vas a
+   presentar (aula, casa comunal, etc.). Los celulares de las
+   personas que escaneen el QR deben estar en ESA MISMA red WiFi.
+
+2. Haz doble clic en "iniciar-museo.bat".
+   Esto va a:
+     a) Generar un nuevo codigo QR con la IP de la red actual
+        (se abre automaticamente la imagen "qr-museo.png").
+     b) Abrir el museo en tu propio navegador para que verifiques
+        que se ve bien.
+     c) Dejar corriendo un servidor local en el puerto 8000.
+        NO CIERRES esa ventana negra mientras dure la presentacion.
+
+3. Abre la diapositiva 8 ("Museo Virtual") de la presentacion de
+   PowerPoint y proyecta el código QR para que el público lo escanee
+   con la cámara de su celular.
+
+4. Cuando termines, simplemente cierra la ventana negra (o presiona
+   Ctrl+C dentro de ella) para apagar el servidor.
+
+------------------------------------------------------------
+ MUY IMPORTANTE: LA IP CAMBIA SEGÚN LA RED
+------------------------------------------------------------
+El código QR apunta a la dirección IP de tu computadora dentro de
+la red WiFi (por ejemplo 10.153.159.201). Esa dirección es diferente
+en cada red: tu casa, la universidad, el aula, etc.
+
+Por eso "iniciar-museo.bat" regenera el QR automáticamente cada vez
+que lo ejecutas. Si vas a presentar en un lugar distinto al que
+usaste la última vez, vuelve a correr "iniciar-museo.bat" (o
+"python generar_qr.py") ANTES de abrir la diapositiva con el QR,
+y si quieres que el QR de la presentación de PowerPoint quede
+actualizado, vuelve a correr también:
+
+    python build_pptx.py
+
+(esto reconstruye el .pptx usando el QR más reciente).
+
+------------------------------------------------------------
+ LIMITACIONES DE "SOLO RED LOCAL" (lo que elegiste)
+------------------------------------------------------------
+- El museo SOLO es accesible mientras tu computadora esté prendida,
+  conectada a la red, y el servidor (iniciar-museo.bat) esté
+  corriendo. No es un sitio permanente en internet.
+- Solo funciona si los celulares están en la MISMA red WiFi que tu
+  computadora. En redes de universidad/empresa a veces los
+  dispositivos están "aislados" entre sí (AP/client isolation) y el
+  QR no funcionará aunque estén en la misma WiFi; en ese caso
+  conviene usar el "hotspot" de tu propio celular y conectar tu
+  computadora a esa red en vez de la del lugar.
+- Si en el futuro quieres una versión PERMANENTE y pública (con una
+  URL fija, sin depender de tu computadora ni de la red), puedo
+  publicarla en GitHub Pages — solo dime y lo hacemos.
+
+------------------------------------------------------------
+ SI QUIERES EDITAR EL MUSEO
+------------------------------------------------------------
+- Para cambiar textos o el diseño: edita "index.html" con cualquier
+  editor de texto (Notepad, VS Code, etc.) y busca la sección que
+  quieras cambiar (Historia, Estado actual, Galería, Memoria viva,
+  Propuestas, Créditos).
+- Para agregar/quitar fotos: coloca o elimina archivos en la carpeta
+  "imagenes/" siguiendo el patrón de nombre "foto-NN.jpg", y cambia
+  el número "TOTAL_FOTOS" al final de "index.html" (en la etiqueta
+  <script>) para que coincida con la cantidad real de fotos.
+
+------------------------------------------------------------
+ NOTA SOBRE PRIVACIDAD
+------------------------------------------------------------
+Algunas fotografías de la carpeta muestran el rostro de personas
+entrevistadas durante el trabajo de campo (igual que en el Anexo 1
+del informe escrito). Si alguna de esas personas no autorizó que su
+imagen se publique más allá del informe entregado a la profesora,
+revisa la carpeta "imagenes/" y elimina esas fotos antes de
+compartir el QR.
+============================================================

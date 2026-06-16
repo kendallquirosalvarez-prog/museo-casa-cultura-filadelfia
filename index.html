@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Museo Virtual — Casa de la Cultura de Filadelfia</title>
+<meta name="description" content="Museo virtual sobre la Casa de la Cultura de Filadelfia, Guanacaste, patrimonio histórico-arquitectónico de Costa Rica.">
+<style>
+  :root{
+    --terracota:#a85c32;
+    --terracota-osc:#7c4322;
+    --crema:#f4ecdf;
+    --crema-osc:#e8dcc4;
+    --cafe:#4a3324;
+    --cafe-claro:#6b4f3a;
+    --verde:#5c6b3f;
+    --sombra: 0 8px 24px rgba(74,51,36,.18);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Georgia','Times New Roman',serif;
+    background:var(--crema);
+    color:var(--cafe);
+    line-height:1.65;
+  }
+  h1,h2,h3{font-family:'Trebuchet MS','Segoe UI',sans-serif; color:var(--terracota-osc);}
+  a{color:var(--terracota-osc);}
+
+  /* ---- Encabezado / Hero ---- */
+  header.hero{
+    position:relative;
+    min-height:62vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:3rem 1.2rem;
+    color:#fff;
+    background:
+      linear-gradient(rgba(40,26,16,.62), rgba(40,26,16,.72)),
+      url('imagenes/foto-20.jpg') center/cover no-repeat;
+  }
+  header.hero .sello{
+    font-size:.85rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    opacity:.9;
+    margin-bottom:.6rem;
+  }
+  header.hero h1{
+    color:#fff;
+    font-size:2.6rem;
+    margin:.2rem 0 .6rem;
+    text-shadow:0 2px 10px rgba(0,0,0,.4);
+  }
+  header.hero p.subtitulo{
+    max-width:640px;
+    font-size:1.15rem;
+    opacity:.95;
+  }
+  header.hero .scroll-cue{
+    margin-top:2rem;
+    font-size:.95rem;
+    opacity:.85;
+    animation:rebote 1.8s infinite;
+  }
+  @keyframes rebote{0%,100%{transform:translateY(0);}50%{transform:translateY(8px);}}
+
+  /* ---- Navegación ---- */
+  nav.menu{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:var(--cafe);
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:.3rem;
+    padding:.6rem .8rem;
+    box-shadow:var(--sombra);
+  }
+  nav.menu a{
+    color:var(--crema);
+    text-decoration:none;
+    font-family:'Trebuchet MS','Segoe UI',sans-serif;
+    font-size:.92rem;
+    padding:.5rem .9rem;
+    border-radius:999px;
+    transition:background .2s;
+    white-space:nowrap;
+  }
+  nav.menu a:hover{background:var(--terracota);}
+
+  /* ---- Secciones ---- */
+  section{
+    max-width:1000px;
+    margin:0 auto;
+    padding:3.2rem 1.4rem;
+  }
+  section.alterna{background:var(--crema-osc);}
+  section h2{
+    font-size:1.8rem;
+    border-bottom:3px solid var(--terracota);
+    display:inline-block;
+    padding-bottom:.3rem;
+    margin-bottom:1.2rem;
+  }
+  section .lead{
+    font-style:italic;
+    color:var(--cafe-claro);
+    font-size:1.05rem;
+    margin-bottom:1.4rem;
+  }
+  .tarjeta{
+    background:#fff;
+    border-radius:14px;
+    padding:1.6rem 1.8rem;
+    box-shadow:var(--sombra);
+    margin-bottom:1.4rem;
+    border-left:5px solid var(--terracota);
+  }
+  .grid-2{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+    gap:1.4rem;
+  }
+  .dato{
+    background:#fff;
+    border-radius:14px;
+    padding:1.2rem 1.4rem;
+    box-shadow:var(--sombra);
+    text-align:center;
+  }
+  .dato .num{
+    font-size:2.1rem;
+    font-weight:bold;
+    color:var(--terracota);
+    display:block;
+  }
+  .dato .etq{
+    font-family:'Trebuchet MS','Segoe UI',sans-serif;
+    font-size:.85rem;
+    color:var(--cafe-claro);
+    text-transform:uppercase;
+    letter-spacing:.05em;
+  }
+
+  blockquote{
+    background:var(--crema-osc);
+    border-left:5px solid var(--terracota);
+    margin:1.4rem 0;
+    padding:1rem 1.4rem;
+    font-style:italic;
+    border-radius:8px;
+  }
+  blockquote cite{
+    display:block;
+    margin-top:.5rem;
+    font-style:normal;
+    font-weight:bold;
+    color:var(--terracota-osc);
+    font-size:.9rem;
+  }
+
+  /* ---- Galería ---- */
+  .galeria{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(170px,1fr));
+    gap:.7rem;
+  }
+  .galeria figure{
+    margin:0;
+    position:relative;
+    overflow:hidden;
+    border-radius:10px;
+    aspect-ratio:1/1;
+    cursor:pointer;
+    box-shadow:var(--sombra);
+  }
+  .galeria img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    transition:transform .35s;
+  }
+  .galeria figure:hover img{transform:scale(1.08);}
+  .galeria figure::after{
+    content:"🔍";
+    position:absolute;
+    bottom:6px; right:8px;
+    background:rgba(0,0,0,.45);
+    color:#fff;
+    border-radius:50%;
+    width:26px; height:26px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:.8rem;
+  }
+
+  /* ---- Lightbox ---- */
+  .lightbox{
+    display:none;
+    position:fixed; inset:0;
+    background:rgba(20,12,6,.92);
+    z-index:200;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    padding:2rem 1rem;
+  }
+  .lightbox.activo{display:flex;}
+  .lightbox img{
+    max-width:92vw;
+    max-height:78vh;
+    border-radius:8px;
+    box-shadow:0 10px 40px rgba(0,0,0,.6);
+  }
+  .lightbox .contador{
+    color:var(--crema);
+    margin-top:1rem;
+    font-family:'Trebuchet MS','Segoe UI',sans-serif;
+    font-size:.95rem;
+    opacity:.85;
+  }
+  .lightbox .cerrar{
+    position:absolute;
+    top:1.2rem; right:1.6rem;
+    color:#fff;
+    font-size:2.1rem;
+    cursor:pointer;
+    line-height:1;
+    background:none; border:none;
+  }
+  .lightbox .flecha{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    background:rgba(255,255,255,.12);
+    border:none;
+    color:#fff;
+    font-size:2rem;
+    padding:.6rem 1rem;
+    cursor:pointer;
+    border-radius:8px;
+  }
+  .lightbox .flecha.izq{left:1rem;}
+  .lightbox .flecha.der{right:1rem;}
+  .lightbox .flecha:hover{background:rgba(255,255,255,.25);}
+
+  /* ---- Propuestas ---- */
+  ul.propuestas{
+    list-style:none;
+    padding:0;
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+    gap:1rem;
+  }
+  ul.propuestas li{
+    background:#fff;
+    border-radius:12px;
+    padding:1.1rem 1.2rem;
+    box-shadow:var(--sombra);
+    border-top:4px solid var(--verde);
+  }
+  ul.propuestas li strong{display:block; color:var(--verde); margin-bottom:.3rem;}
+
+  /* ---- Footer ---- */
+  footer{
+    background:var(--cafe);
+    color:var(--crema);
+    text-align:center;
+    padding:2.4rem 1.2rem;
+    font-family:'Trebuchet MS','Segoe UI',sans-serif;
+  }
+  footer .integrantes{
+    margin:.8rem 0;
+    font-size:.92rem;
+    opacity:.9;
+  }
+  footer .fuente{
+    font-size:.78rem;
+    opacity:.65;
+    margin-top:1rem;
+  }
+  footer a{color:var(--crema); text-decoration:underline;}
+
+  @media (max-width:600px){
+    header.hero h1{font-size:1.9rem;}
+    section{padding:2.2rem 1rem;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="sello">Universidad de Costa Rica · SR-0033 Seminario de Realidad Nacional II</div>
+  <h1>Casa de la Cultura de Filadelfia</h1>
+  <p class="subtitulo">Museo virtual sobre el patrimonio histórico-arquitectónico de Filadelfia, Carrillo, Guanacaste: su historia, su estado actual y la memoria viva de su comunidad.</p>
+  <div class="scroll-cue">↓ desplázate para conocer la historia ↓</div>
+</header>
+
+<nav class="menu">
+  <a href="#historia">Historia</a>
+  <a href="#estado">Estado actual</a>
+  <a href="#galeria">Galería</a>
+  <a href="#memoria">Memoria viva</a>
+  <a href="#propuestas">Propuestas</a>
+  <a href="#creditos">Créditos</a>
+</nav>
+
+<section id="historia">
+  <h2>Historia y características</h2>
+  <p class="lead">Una de las construcciones más antiguas de Filadelfia, declarada Patrimonio Histórico-Arquitectónico de Costa Rica.</p>
+
+  <div class="grid-2">
+    <div class="dato"><span class="num">S. XIX</span><span class="etq">Construcción aproximada</span></div>
+    <div class="dato"><span class="num">2000</span><span class="etq">Año de declaratoria</span></div>
+    <div class="dato"><span class="num">N.° 28698-C</span><span class="etq">Decreto ejecutivo</span></div>
+  </div>
+
+  <div class="tarjeta" style="margin-top:1.4rem;">
+    <p>La Casa de la Cultura de Filadelfia fue construida aproximadamente a mediados del siglo XIX con
+    <strong>bahareque y madera</strong>, materiales tradicionales de las casas costarricenses de la época.
+    A lo largo del tiempo fue testigo de los principales acontecimientos de la comunidad y, desde el año 2000,
+    está protegida oficialmente como Patrimonio Histórico-Arquitectónico de Costa Rica mediante el
+    Decreto Ejecutivo N.° 28698-C.</p>
+    <p>Durante muchos años fue el punto de encuentro cultural de Filadelfia: allí se realizaban
+    clases de baile y marimba, presentaciones de música tradicional, reuniones comunales y actividades
+    folclóricas que fortalecían la identidad del pueblo. En su interior aún se conservan fotografías
+    antiguas, documentos, cédulas y objetos que narran la historia de sus habitantes.</p>
+  </div>
+</section>
+
+<section id="estado" class="alterna">
+  <h2>Estado actual de conservación</h2>
+  <p class="lead">Las visitas de campo evidenciaron un deterioro progresivo y la ausencia de mantenimiento.</p>
+
+  <div class="tarjeta">
+    <p>La fachada y las estructuras laterales presentan signos de desgaste, y el <strong>bahareque</strong> —
+    material patrimonial por excelencia— muestra desprendimientos que dejan sectores expuestos a la humedad.
+    Puertas y escaleras de madera también presentan daños visibles, y se identificó acumulación de residuos
+    sólidos en los alrededores del inmueble.</p>
+    <p>El segundo piso, usado para ensayos de baile hasta aproximadamente el año 2020, permanece hoy sin
+    programación cultural activa. En determinado momento el edificio incluso se utilizó como bodega de
+    herramientas, lo que coincidió con un episodio de robo y reforzó la percepción de abandono entre los
+    habitantes de Filadelfia.</p>
+  </div>
+</section>
+
+<section id="galeria">
+  <h2>Galería fotográfica</h2>
+  <p class="lead">Registro visual del estado actual de la Casa de la Cultura, recopilado durante las visitas de campo (haz clic en cualquier foto para ampliarla).</p>
+  <div class="galeria" id="contenedor-galeria"></div>
+</section>
+
+<section id="memoria" class="alterna">
+  <h2>Memoria viva de la comunidad</h2>
+  <p class="lead">Para los habitantes de Filadelfia, la Casa de la Cultura es mucho más que un edificio.</p>
+
+  <blockquote>
+    Durante aproximadamente veinte años me dediqué al cuidado de la casa y a la formación de grupos de baile
+    folclórico, transmitiendo bailes como “La Marcha Esquivel”, una manifestación cultural poco conocida hoy.
+    <cite>— Doña Magdalena, vecina de Filadelfia</cite>
+  </blockquote>
+
+  <div class="tarjeta">
+    <p>Las entrevistas realizadas a residentes y funcionarios revelaron tres temas centrales: la
+    <strong>identidad cultural</strong> que representa el edificio, los <strong>recuerdos y experiencias</strong>
+    vividos dentro de sus paredes, y la <strong>preocupación</strong> por su estado actual de abandono.
+    La pérdida de actividades culturales ha debilitado el vínculo entre las nuevas generaciones y la historia
+    de su comunidad, poniendo en riesgo la transmisión del patrimonio cultural inmaterial de Filadelfia.</p>
+  </div>
+</section>
+
+<section id="propuestas">
+  <h2>Propuestas de la comunidad</h2>
+  <p class="lead">Habitantes y actores institucionales coinciden: todavía se puede recuperar este patrimonio.</p>
+
+  <ul class="propuestas">
+    <li><strong>Restauración del edificio</strong>Reparar bahareque, madera y estructura antes de que el deterioro avance más.</li>
+    <li><strong>Reapertura cultural</strong>Recuperar bailes folclóricos, música y reuniones comunales.</li>
+    <li><strong>Museo local</strong>Exhibir fotografías, documentos y objetos históricos de Filadelfia.</li>
+    <li><strong>Programas educativos</strong>Talleres y charlas para que niños y jóvenes conozcan su historia.</li>
+    <li><strong>Trabajo conjunto</strong>Coordinación entre la Municipalidad de Carrillo, el Ministerio de Cultura y la comunidad.</li>
+  </ul>
+</section>
+
+<footer id="creditos">
+  <strong>Casa de la Cultura de Filadelfia, Guanacaste — 2026</strong>
+  <p class="integrantes">
+    Keiry Valeria Campos Castro · Katherine Polanco Landeros · Karen Picado Espinoza · Kendall Quirós Alvarez<br>
+    Universidad de Costa Rica · Coordinación de Estudios Generales · SR-0033 Seminario de Realidad Nacional II — Patrimonio Cultural
+  </p>
+  <p class="fuente">Fuentes: Sistema de Información Cultural de Costa Rica (SICultura) · Decreto Ejecutivo N.° 28698-C · Fotografías: elaboración propia, 2026.</p>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <button class="cerrar" id="btn-cerrar" aria-label="Cerrar">&times;</button>
+  <button class="flecha izq" id="btn-prev" aria-label="Anterior">&#8249;</button>
+  <img id="lightbox-img" src="" alt="">
+  <button class="flecha der" id="btn-next" aria-label="Siguiente">&#8250;</button>
+  <div class="contador" id="lightbox-contador"></div>
+</div>
+
+<script>
+  const TOTAL_FOTOS = 43;
+  const contenedor = document.getElementById('contenedor-galeria');
+  const rutas = [];
+  for (let i = 1; i <= TOTAL_FOTOS; i++) {
+    const num = String(i).padStart(2, '0');
+    const ruta = `imagenes/foto-${num}.jpg`;
+    rutas.push(ruta);
+    const fig = document.createElement('figure');
+    fig.dataset.indice = i - 1;
+    fig.innerHTML = `<img src="${ruta}" alt="Fotografía ${i} de la Casa de la Cultura de Filadelfia" loading="lazy">`;
+    contenedor.appendChild(fig);
+  }
+
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const contador = document.getElementById('lightbox-contador');
+  let indiceActual = 0;
+
+  function mostrar(indice) {
+    indiceActual = (indice + rutas.length) % rutas.length;
+    lightboxImg.src = rutas[indiceActual];
+    contador.textContent = `Fotografía ${indiceActual + 1} de ${rutas.length}`;
+  }
+
+  contenedor.addEventListener('click', (e) => {
+    const fig = e.target.closest('figure');
+    if (!fig) return;
+    mostrar(parseInt(fig.dataset.indice, 10));
+    lightbox.classList.add('activo');
+  });
+
+  document.getElementById('btn-cerrar').addEventListener('click', () => lightbox.classList.remove('activo'));
+  document.getElementById('btn-prev').addEventListener('click', () => mostrar(indiceActual - 1));
+  document.getElementById('btn-next').addEventListener('click', () => mostrar(indiceActual + 1));
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.classList.remove('activo'); });
+
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('activo')) return;
+    if (e.key === 'Escape') lightbox.classList.remove('activo');
+    if (e.key === 'ArrowLeft') mostrar(indiceActual - 1);
+    if (e.key === 'ArrowRight') mostrar(indiceActual + 1);
+  });
+</script>
+
+</body>
+</html>
