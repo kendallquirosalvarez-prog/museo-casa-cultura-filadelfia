@@ -7,92 +7,92 @@ fotografías de la Casa de la Cultura de Filadelfia, más la
 presentación de PowerPoint del proyecto con el código QR de acceso.
 
 ------------------------------------------------------------
+ EL MUSEO YA ESTÁ PUBLICADO EN INTERNET (permanente)
+------------------------------------------------------------
+URL pública:
+  https://kendallquirosalvarez-prog.github.io/museo-casa-cultura-filadelfia/
+
+El código QR ("qr-museo.png", y el que está en la diapositiva 8 de
+la presentación) apunta a esa URL fija. Ya NO necesitas:
+  - que tu computadora esté prendida
+  - estar conectado a ninguna red en particular
+  - regenerar el QR antes de cada presentación
+
+Cualquier persona puede escanearlo con la cámara de su celular y
+con datos móviles o cualquier WiFi, en cualquier momento, y va a
+poder ver el museo.
+
+------------------------------------------------------------
  CONTENIDO DE LA CARPETA
 ------------------------------------------------------------
-  index.html                                  -> el museo virtual (pagina web)
-  imagenes/                                   -> las 43 fotografias (foto-01.jpg ... foto-43.jpg)
-  qr-museo.png                                 -> el codigo QR de acceso
-  generar_qr.py                                -> script para regenerar el QR
-  iniciar-museo.bat                            -> inicia todo con un doble clic
+  index.html                                  -> el museo virtual (codigo fuente de la pagina)
+  imagenes/                                    -> las 43 fotografias (foto-01.jpg ... foto-43.jpg)
+  qr-museo.png                                 -> el codigo QR fijo (URL publica de GitHub Pages)
+  generar_qr_publico.py                        -> regenera el QR fijo (solo si cambias la URL)
   build_pptx.py                                -> script que genera la presentacion
   Presentacion-Casa-Cultura-Filadelfia.pptx    -> presentacion de PowerPoint (incluye el QR)
+  LEEME.txt                                    -> este archivo
+
+  -- Archivos de la version anterior (red local), ya no son necesarios --
+  generar_qr.py                                -> generaba un QR con la IP local (solo si algun dia
+                                                   quieres volver a usar el museo SIN internet, en una
+                                                   red WiFi sin acceso externo)
+  iniciar-museo.bat                            -> inicia un servidor local (idem, solo para uso sin internet)
 
 ------------------------------------------------------------
- COMO USARLO EL DIA DE LA PRESENTACION (paso a paso)
+ CÓMO USARLO EL DÍA DE LA PRESENTACIÓN
 ------------------------------------------------------------
-1. Conecta tu computadora a la red WiFi del lugar donde vas a
-   presentar (aula, casa comunal, etc.). Los celulares de las
-   personas que escaneen el QR deben estar en ESA MISMA red WiFi.
-
-2. Haz doble clic en "iniciar-museo.bat".
-   Esto va a:
-     a) Generar un nuevo codigo QR con la IP de la red actual
-        (se abre automaticamente la imagen "qr-museo.png").
-     b) Abrir el museo en tu propio navegador para que verifiques
-        que se ve bien.
-     c) Dejar corriendo un servidor local en el puerto 8000.
-        NO CIERRES esa ventana negra mientras dure la presentacion.
-
-3. Abre la diapositiva 8 ("Museo Virtual") de la presentacion de
-   PowerPoint y proyecta el código QR para que el público lo escanee
-   con la cámara de su celular.
-
-4. Cuando termines, simplemente cierra la ventana negra (o presiona
-   Ctrl+C dentro de ella) para apagar el servidor.
+1. Abre la diapositiva 8 ("Museo Virtual") de la presentación de
+   PowerPoint y proyecta el código QR.
+2. El público lo escanea con la cámara de su celular (con datos
+   móviles o cualquier WiFi del lugar, no hace falta que coincida
+   con ninguna red en particular).
+3. ¡Ya está! No necesitas hacer nada más en tu computadora.
 
 ------------------------------------------------------------
- MUY IMPORTANTE: LA IP CAMBIA SEGÚN LA RED
+ SI QUIERES EDITAR EL MUSEO O LAS FOTOS (publicarlo de nuevo)
 ------------------------------------------------------------
-El código QR apunta a la dirección IP de tu computadora dentro de
-la red WiFi (por ejemplo 10.153.159.201). Esa dirección es diferente
-en cada red: tu casa, la universidad, el aula, etc.
+El sitio se publica desde el repositorio de GitHub:
+  https://github.com/kendallquirosalvarez-prog/museo-casa-cultura-filadelfia
 
-Por eso "iniciar-museo.bat" regenera el QR automáticamente cada vez
-que lo ejecutas. Si vas a presentar en un lugar distinto al que
-usaste la última vez, vuelve a correr "iniciar-museo.bat" (o
-"python generar_qr.py") ANTES de abrir la diapositiva con el QR,
-y si quieres que el QR de la presentación de PowerPoint quede
-actualizado, vuelve a correr también:
+Para actualizarlo:
+  1. Edita "index.html" (textos/diseño) o agrega/quita fotos en
+     "imagenes/" (y ajusta el número TOTAL_FOTOS dentro de
+     index.html si cambia la cantidad de fotos).
+  2. Desde esta carpeta, en una terminal:
+        git add -A
+        git commit -m "Actualizo el museo"
+        git push
+  3. GitHub Pages reconstruye el sitio automáticamente (tarda
+     1-2 minutos). La URL no cambia, así que el QR sigue
+     funcionando igual, sin necesidad de generarlo de nuevo.
 
-    python build_pptx.py
-
-(esto reconstruye el .pptx usando el QR más reciente).
-
-------------------------------------------------------------
- LIMITACIONES DE "SOLO RED LOCAL" (lo que elegiste)
-------------------------------------------------------------
-- El museo SOLO es accesible mientras tu computadora esté prendida,
-  conectada a la red, y el servidor (iniciar-museo.bat) esté
-  corriendo. No es un sitio permanente en internet.
-- Solo funciona si los celulares están en la MISMA red WiFi que tu
-  computadora. En redes de universidad/empresa a veces los
-  dispositivos están "aislados" entre sí (AP/client isolation) y el
-  QR no funcionará aunque estén en la misma WiFi; en ese caso
-  conviene usar el "hotspot" de tu propio celular y conectar tu
-  computadora a esa red en vez de la del lugar.
-- Si en el futuro quieres una versión PERMANENTE y pública (con una
-  URL fija, sin depender de tu computadora ni de la red), puedo
-  publicarla en GitHub Pages — solo dime y lo hacemos.
+Si algún día cambias el nombre del repositorio o de tu cuenta de
+GitHub, la URL cambiaría; en ese caso edita la variable
+URL_PUBLICA en "generar_qr_publico.py", corre ese script de nuevo,
+y luego "python build_pptx.py" para que la presentación tenga el
+QR actualizado.
 
 ------------------------------------------------------------
- SI QUIERES EDITAR EL MUSEO
+ NOTA SOBRE PRIVACIDAD (IMPORTANTE — léela)
 ------------------------------------------------------------
-- Para cambiar textos o el diseño: edita "index.html" con cualquier
-  editor de texto (Notepad, VS Code, etc.) y busca la sección que
-  quieras cambiar (Historia, Estado actual, Galería, Memoria viva,
-  Propuestas, Créditos).
-- Para agregar/quitar fotos: coloca o elimina archivos en la carpeta
-  "imagenes/" siguiendo el patrón de nombre "foto-NN.jpg", y cambia
-  el número "TOTAL_FOTOS" al final de "index.html" (en la etiqueta
-  <script>) para que coincida con la cantidad real de fotos.
+El museo ahora es PÚBLICO en internet de forma permanente: cualquier
+persona con el enlace o el QR puede verlo, no solo quienes estén
+físicamente en tu presentación. Algunas fotografías muestran el
+rostro de una vecina entrevistada durante el trabajo de campo
+(documentación similar a la del Anexo 1 del informe escrito).
 
-------------------------------------------------------------
- NOTA SOBRE PRIVACIDAD
-------------------------------------------------------------
-Algunas fotografías de la carpeta muestran el rostro de personas
-entrevistadas durante el trabajo de campo (igual que en el Anexo 1
-del informe escrito). Si alguna de esas personas no autorizó que su
-imagen se publique más allá del informe entregado a la profesora,
-revisa la carpeta "imagenes/" y elimina esas fotos antes de
-compartir el QR.
+Si esa persona u otras que aparecen en las fotos no autorizaron que
+su imagen circule abiertamente en internet más allá del informe
+entregado a la profesora, te recomiendo:
+  - Eliminar esas fotos de la carpeta "imagenes/" (y del número
+    TOTAL_FOTOS en index.html), o
+  - Pedirles autorización explícita antes de dejar el sitio público.
+
+Para quitar una foto y volver a publicar:
+  1. Borra el archivo correspondiente en "imagenes/" (ej. foto-08.jpg).
+  2. Si quieres mantener la numeración sin huecos, renombra las
+     fotos siguientes para que sean consecutivas, y ajusta
+     TOTAL_FOTOS en index.html.
+  3. git add -A && git commit -m "Quito foto" && git push
 ============================================================

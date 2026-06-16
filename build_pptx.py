@@ -315,8 +315,10 @@ parrafo(caja.text_frame,
         "Escanea el código QR con la cámara de tu celular para recorrer la galería completa de "
         "fotografías y conocer la historia, el estado actual y las propuestas de la comunidad.",
         tam=16.5, color=CREMA, espacio_antes=20)
-parrafo(caja.text_frame, "⚠ Debes estar conectado a la misma red WiFi que esta computadora.",
+parrafo(caja.text_frame, "Funciona desde cualquier celular con internet, en cualquier momento.",
         tam=14, color=RGBColor(0xE0, 0xB0, 0x80), cursiva=True, espacio_antes=18)
+parrafo(caja.text_frame, "kendallquirosalvarez-prog.github.io/museo-casa-cultura-filadelfia",
+        tam=12.5, color=CREMA_OSC, espacio_antes=10)
 
 if QR.exists():
     qr_alto = Inches(4.7)
